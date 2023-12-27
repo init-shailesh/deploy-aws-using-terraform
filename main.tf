@@ -175,6 +175,9 @@ resource "aws_launch_configuration" "webapp_launch_config" {
     mkdir /var/log
     mount /dev/xvdb /var/log
 
+    # Copy the ansible-playbook to instance
+    aws s3 cp s3://aws-east-1-webapp-bucket/WebApp.yaml /etc/ansible/WebApp.yaml
+
     # Run the Ansible playbook
     ansible-playbook -i "localhost," -c local /etc/ansible/WebApp.yaml
     EOF
